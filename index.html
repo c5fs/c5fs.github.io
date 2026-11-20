@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Christmas List 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: one readable column of gift cards grouped by what they're for, summary up top, filters that work with one thumb. */
+:root {
+  --bg: #f3f6f2;
+  --surface: #ffffff;
+  --ink: #15241d;
+  --muted: #56675e;
+  --line: #dbe3dc;
+  --accent: #b3263e;
+  --pine: #1e5a43;
+  --pine-soft: #e2efe8;
+  --accent-soft: #f8e4e7;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1612;
+    --surface: #16221c;
+    --ink: #e7efe9;
+    --muted: #9fb3a8;
+    --line: #2a3a32;
+    --accent: #f07285;
+    --pine: #6cc9a0;
+    --pine-soft: #1d3a2d;
+    --accent-soft: #3a1d24;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1612;
+  --surface: #16221c;
+  --ink: #e7efe9;
+  --muted: #9fb3a8;
+  --line: #2a3a32;
+  --accent: #f07285;
+  --pine: #6cc9a0;
+  --pine-soft: #1d3a2d;
+  --accent-soft: #3a1d24;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+}
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 28px 18px 56px;
+  display: grid;
+  gap: 24px;
+}
+
+/* Header */
+header { display: grid; gap: 6px; }
+.eyebrow {
+  font-size: 14px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(32px, 7vw, 46px);
+  line-height: 1.05;
+  margin: 0;
+  text-wrap: balance;
+}
+h1 .year { color: var(--accent); }
+
+/* Summary: one estimated total per phone option */
+.summary {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px 18px;
+  display: grid;
+  gap: 10px;
+}
+.est-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+  margin: 0;
+}
+.est-rows { display: grid; }
+.est-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 9px 0;
+  border-top: 1px solid var(--line);
+}
+.est-row:first-child { border-top: 0; padding-top: 2px; }
+.est-row .which { display: grid; gap: 1px; }
+.est-row .which b { font-size: 16px; }
+.est-row .which span { font-size: 14px; color: var(--muted); }
+.est-row .amt {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 24px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.est-row.best .amt { color: var(--pine); }
+.summary-note { font-size: 14px; color: var(--muted); margin: 0; max-width: 65ch; }
+
+/* Price watch (filled by the daily price check) */
+.watch {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px 18px;
+  display: grid;
+  gap: 10px;
+}
+.watch[hidden] { display: none; }
+.watch-rows { display: grid; }
+.watch-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 8px 0;
+  border-top: 1px solid var(--line);
+}
+.watch-row:first-child { border-top: 0; padding-top: 0; }
+.watch-row .which { display: grid; gap: 1px; }
+.watch-row .which b { font-size: 15px; }
+.watch-row .which span { font-size: 13px; color: var(--muted); }
+.watch-row .which a { color: var(--pine); font-weight: 700; }
+.watch-row .now-price {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 19px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-align: right;
+}
+.deal-badge {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--pine);
+  background: var(--pine-soft);
+  border-radius: 999px;
+  padding: 1px 8px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.deal-alert {
+  background: var(--pine-soft);
+  color: var(--ink);
+  border-left: 4px solid var(--pine);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 15px;
+  display: grid;
+  gap: 4px;
+}
+.now { font-size: 14px; color: var(--muted); margin: 0; }
+.now b { color: var(--ink); font-variant-numeric: tabular-nums; }
+
+/* Controls */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--bg);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip {
+  font: inherit;
+  font-size: 15px;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 7px 14px;
+  cursor: pointer;
+  min-height: 40px;
+}
+.chip[aria-pressed="true"] {
+  background: var(--pine);
+  border-color: var(--pine);
+  color: var(--bg);
+  font-weight: 700;
+}
+.chip .count { opacity: 0.75; font-variant-numeric: tabular-nums; }
+.sort { display: flex; align-items: center; gap: 8px; font-size: 15px; color: var(--muted); }
+select {
+  font: inherit;
+  font-size: 15px;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  padding: 7px 10px;
+  min-height: 40px;
+  cursor: pointer;
+}
+.chip:focus-visible, select:focus-visible, a:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Groups */
+.list { display: grid; gap: 28px; }
+.group { display: grid; gap: 12px; }
+.group-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 22px;
+  margin: 0;
+}
+.pick-one {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  padding: 2px 10px;
+}
+.group-sub { font-size: 15px; color: var(--muted); margin: -6px 0 0; }
+
+/* Cards */
+.cards { display: grid; gap: 12px; }
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: grid;
+  gap: 10px;
+}
+.card.want { border-left-color: var(--pine); }
+.card.bought { opacity: 0.6; }
+.card-top {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 14px;
+  align-items: start;
+}
+.meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: 14px; color: var(--muted); }
+.status {
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 2px 10px;
+  border: 1.5px solid currentColor;
+}
+.status.want { color: var(--pine); background: var(--pine-soft); border-color: transparent; }
+.status.maybe { color: var(--muted); }
+.status.bought { color: var(--pine); }
+.tag { font-weight: 700; color: var(--accent); }
+.pick {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.3;
+  margin: 2px 0 0;
+  grid-column: 1 / 2;
+}
+.price {
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
+  text-align: right;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 22px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.price.none { font-family: var(--font-body); font-weight: 400; font-size: 15px; color: var(--muted); }
+.notes { margin: 0; color: var(--ink); max-width: 65ch; }
+.pc { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.pc h3 { font-size: 14px; margin: 0 0 4px; text-transform: uppercase; letter-spacing: 0.04em; }
+.pc .pros h3 { color: var(--pine); }
+.pc .cons h3 { color: var(--accent); }
+.pc ul, .returns ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: 15px; }
+.returns {
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.returns h3 { font-size: 14px; margin: 0 0 4px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+.link {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--pine);
+  text-decoration: none;
+  border: 1.5px solid var(--pine);
+  border-radius: 10px;
+  padding: 6px 12px;
+  min-height: 38px;
+}
+.link:hover { background: var(--pine-soft); }
+.empty { color: var(--muted); text-align: center; padding: 24px 0; }
+footer { font-size: 14px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; }
+
+@media (max-width: 520px) {
+  .est-row .amt { font-size: 21px; }
+  .pc { grid-template-columns: 1fr; }
+  .price { font-size: 20px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .card { transition: opacity 0.15s ease; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Updated November 18, 2026</div>
+    <h1>My Christmas List <span class="year">2026</span></h1>
+  </header>
+
+  <section class="summary" aria-labelledby="est-h">
+    <h2 class="est-title" id="est-h">Estimated total, not counting the iPhone</h2>
+    <div class="est-rows" id="estRows"></div>
+    <p class="summary-note" id="estNote"></p>
+  </section>
+
+  <section class="watch" id="watch" hidden aria-labelledby="watch-h">
+    <h2 class="est-title" id="watch-h">Price watch</h2>
+    <div id="watchAlert"></div>
+    <div class="watch-rows" id="watchRows"></div>
+    <p class="summary-note" id="watchNote"></p>
+  </section>
+
+  <div class="controls">
+    <div class="chips" role="group" aria-label="Show">
+      <button class="chip" id="f-all" data-filter="all" aria-pressed="true">All <span class="count"></span></button>
+      <button class="chip" id="f-want" data-filter="Want" aria-pressed="false">Want <span class="count"></span></button>
+      <button class="chip" id="f-maybe" data-filter="Maybe" aria-pressed="false">Maybe <span class="count"></span></button>
+    </div>
+    <label class="sort" for="sortSel">Sort
+      <select id="sortSel">
+        <option value="list">By section</option>
+        <option value="low">Price: low to high</option>
+        <option value="high">Price: high to low</option>
+      </select>
+    </label>
+  </div>
+
+  <main class="list" id="list"></main>
+
+  <footer>Prices were checked in November 2026 and can change, especially around Black Friday. Click a store button to see the current price.</footer>
+</div>
+
+<script>
+const GROUPS = {
+  audio:  { name: "Audio", sub: "For my PR2 IEMs and my two PCs." },
+  phone:  { name: "New phone", sub: "Replacing my iPhone 11." },
+  chair:  { name: "Desk chair", sub: "For my back." },
+  lights: { name: "Desk lights", sub: "For my desk corner and behind my monitors." },
+  extras: { name: "Extras", sub: "" },
+  maybe:  { name: "Maybe", sub: "Nice to have, or other options I'd also be happy with." }
+};
+const groupOf = it => it.status === "Maybe" ? "maybe" : it.cat;
+
+const ITEMS = [
+  { id: "fosi", cat: "audio", tag: "", pick: "Fosi Audio K5 Pro", kind: "Audio amp", price: 79.99, status: "Want",
+    url: "https://www.fosiaudio.com/product/dac/k5-pro/", site: "fosiaudio.com",
+    notes: "Has a mic input and a volume knob. Powers my PR2 IEMs. Comes with an optical cable for my 2nd PC." },
+  { id: "usb", cat: "audio", tag: "Add-on", pick: "2-PC USB switch", kind: "USB switch", price: 20, status: "Maybe",
+    notes: "Optional. Lets me switch the amp and mic between my two PCs with one button. About $15–30." },
+
+  { id: "iphone-ebay", cat: "phone", tag: "Top pick", short: "iPhone 15 Pro Max (eBay)", pick: "iPhone 15 Pro Max 256GB, unlocked", kind: "eBay Refurbished, Very Good", price: 536.95, status: "Want",
+    url: "https://www.ebay.com/itm/406184999028", site: "ebay.com",
+    pros: ["Cheapest unlocked one I found, $31 less than Amazon.", "1-year warranty and free returns.", "Works on my Cricket plan.", "Gets Apple Intelligence and the new Siri.", "256GB, USB-C, and a battery rated to last about twice as many charges as older iPhones."],
+    cons: ["“Very Good” can mean light scratches.", "Ships slower than Amazon.", "Battery health isn't listed, so I need to check it when it arrives.", "Updates will end sooner than on a 16 or 17 Pro Max."],
+    returns: ["60-day returns, and the seller (BidAllies) pays return shipping.", "eBay Refurbished also guarantees free returns for at least 30 days, and eBay's Money Back Guarantee covers it if it doesn't match the listing.", "Warranty: 1 year, serviced by Allstate (U.S. only)."] },
+  { id: "iphone-amazon", cat: "phone", tag: "Fast shipping", short: "iPhone 15 Pro Max (Amazon)", pick: "iPhone 15 Pro Max 256GB, unlocked", kind: "Amazon Renewed, Excellent", price: 568.17, status: "Maybe",
+    url: "https://www.amazon.com/dp/B0CMZ3KKHL", site: "amazon.com",
+    pros: ["Excellent condition, so the nicest-looking.", "Arrives in 2–3 days.", "Easy Amazon returns (90 days).", "Works on my Cricket plan.", "Same phone as the eBay one."],
+    cons: ["$31 more than eBay.", "Only 90 days of coverage, no 1-year warranty.", "Sold by a third-party seller (BidAllies).", "Regular Renewed only promises 80%+ battery.", "Check the “Renewed Premium” option first: it has a 1-year guarantee and 90%+ battery."] },
+
+  { id: "sihoo", cat: "chair", tag: "Top pick", pick: "Sihoo M18 (skate wheel option)", kind: "Ergonomic chair", price: 147, status: "Want",
+    url: "https://sihoooffice.com/products/m18-ergonomic-chair", site: "sihoooffice.com",
+    notes: "Budget pick. Get it with the skate wheels: they're quieter on hardwood floors for RJ. Adjustable lumbar and headrest, holds up to 330 lb. Usually $130–170." },
+  { id: "branch", cat: "chair", tag: "Step up", pick: "Branch Ergonomic Chair", kind: "Ergonomic chair", price: 359, status: "Maybe",
+    url: "https://www.branchfurniture.com/products/ergonomic-chair", site: "branchfurniture.com",
+    notes: "7-year warranty. The Pro version ($499) adds lumbar that adjusts in both height and depth." },
+
+  { id: "govee", cat: "lights", tag: "", pick: "Govee RGBICWW Light Bar (Flow Plus)", kind: "Light bars, set of 2", price: 54.99, status: "Want",
+    url: "https://us.govee.com/products/govee-rgbicww-light-bar", site: "govee.com",
+    notes: "One set comes with two bars: one for the corner of my desk, one behind my monitors. Does warm and cool white, not just colors. Refurbished set is about $42." },
+
+  { id: "lumbar", cat: "extras", tag: "", pick: "Lumbar pillow or footrest", kind: "Back support (not needed with the chair)", price: null, status: "Maybe",
+    notes: "Cheap add-ons to help my back." },
+  { id: "giftcard", cat: "extras", tag: "", pick: "Valorant gift card", kind: "Gift card", price: null, priceText: "Any amount", status: "Maybe",
+    notes: "Easy to buy, any amount." }
+];
+
+const fmt = n => n.toLocaleString("en-US", { style: "currency", currency: "USD" });
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+let filter = "all";
+let sort = "list";
+try {
+  const saved = JSON.parse(localStorage.getItem("xmas-list-view") || "{}");
+  if (["all", "Want", "Maybe"].includes(saved.filter)) filter = saved.filter;
+  if (["list", "low", "high"].includes(saved.sort)) sort = saved.sort;
+} catch (e) { /* storage unavailable: use defaults */ }
+
+function saveView() {
+  try { localStorage.setItem("xmas-list-view", JSON.stringify({ filter, sort })); } catch (e) {}
+}
+
+function cardHTML(it, showGroup) {
+  const st = it.status.toLowerCase();
+  const price = it.price != null
+    ? `<div class="price">${fmt(it.price)}</div>`
+    : `<div class="price none">${esc(it.priceText || "No price yet")}</div>`;
+  const meta = [
+    `<span class="status ${st}">${esc(it.status)}</span>`,
+    it.tag ? `<span class="tag">${esc(it.tag)}</span>` : "",
+    `<span>${esc(showGroup ? GROUPS[it.cat].name + " · " + it.kind : it.kind)}</span>`
+  ].join("");
+  let body = "";
+  body += nowLine(it.id);
+  if (it.notes) body += `<p class="notes">${esc(it.notes)}</p>`;
+  if (it.pros || it.cons) {
+    body += `<div class="pc">
+      <div class="pros"><h3>Pros</h3><ul>${(it.pros || []).map(p => `<li>${esc(p)}</li>`).join("")}</ul></div>
+      <div class="cons"><h3>Cons</h3><ul>${(it.cons || []).map(p => `<li>${esc(p)}</li>`).join("")}</ul></div>
+    </div>`;
+  }
+  if (it.returns) {
+    body += `<div class="returns"><h3>Returns and warranty</h3><ul>${it.returns.map(p => `<li>${esc(p)}</li>`).join("")}</ul></div>`;
+  }
+  const link = it.url ? `<a class="link" href="${esc(it.url)}" target="_blank" rel="noopener">View on ${esc(it.site)} ↗</a>` : "";
+  return `<article class="card ${st}">
+    <div class="card-top">
+      <div class="meta">${meta}</div>
+      ${price}
+      <p class="pick">${esc(it.pick)}</p>
+    </div>
+    ${body}
+    ${link}
+  </article>`;
+}
+
+function render() {
+  const shown = ITEMS.filter(it => filter === "all" || it.status === filter);
+  const list = document.getElementById("list");
+
+  if (!shown.length) {
+    list.innerHTML = `<p class="empty">Nothing marked ${esc(filter)} right now.</p>`;
+  } else if (sort === "list") {
+    list.innerHTML = Object.keys(GROUPS).map(g => {
+      const its = shown.filter(it => groupOf(it) === g);
+      if (!its.length) return "";
+      const G = GROUPS[g];
+      return `<section class="group" aria-labelledby="h-${g}">
+        <div class="group-head"><h2 id="h-${g}">${esc(G.name)}</h2>${G.pickOne ? '<span class="pick-one">Pick one</span>' : ""}</div>
+        ${G.sub ? `<p class="group-sub">${esc(G.sub)}</p>` : ""}
+        <div class="cards">${its.map(it => cardHTML(it, g === "maybe")).join("")}</div>
+      </section>`;
+    }).join("");
+  } else {
+    const sorted = shown.slice().sort((a, b) => {
+      if (a.price == null && b.price == null) return 0;
+      if (a.price == null) return 1;
+      if (b.price == null) return -1;
+      return sort === "low" ? a.price - b.price : b.price - a.price;
+    });
+    list.innerHTML = `<div class="cards">${sorted.map(it => cardHTML(it, true)).join("")}</div>`;
+  }
+
+  document.querySelectorAll(".chip").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.filter === filter)));
+  document.getElementById("sortSel").value = sort;
+}
+
+// ---- Price watch: a daily check writes the latest prices to prices.json ----
+let prices = null;
+const num = v => (typeof v === "number" && isFinite(v)) ? v : null;
+const safeUrl = u => (typeof u === "string" && /^https:\/\//.test(u)) ? u : null;
+function checkedText() {
+  if (!prices || typeof prices.checkedAt !== "string") return "";
+  const d = new Date(prices.checkedAt);
+  if (isNaN(d)) return "";
+  return d.toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+}
+function watchItems() {
+  const items = prices && prices.items && typeof prices.items === "object" ? prices.items : {};
+  return Object.keys(items).map(k => ({ key: k, ...items[k] })).filter(w => w && typeof w === "object");
+}
+function isDeal(w) { const p = num(w.price), t = num(w.target); return p != null && t != null && p <= t; }
+
+function nowLine(id) {
+  if (!prices || !id) return "";
+  const w = prices.items && prices.items[id];
+  if (!w || num(w.price) == null) return "";
+  const when = checkedText();
+  return `<p class="now">Price check: <b>${fmt(num(w.price))}</b>${w.where ? " at " + esc(w.where) : ""}${when ? " · " + esc(when) : ""}${isDeal(w) ? `<span class="deal-badge">Deal: under ${fmt(num(w.target))}</span>` : ""}</p>`;
+}
+
+function renderWatch() {
+  const rows = document.getElementById("watchRows");
+  const alertBox = document.getElementById("watchAlert");
+  const note = document.getElementById("watchNote");
+  const list = watchItems();
+  if (!list.length) {
+    rows.innerHTML = ""; alertBox.innerHTML = "";
+    note.textContent = "The daily price check hasn't run yet. Prices will show up here after it does.";
+    return;
+  }
+  const deals = list.filter(isDeal);
+  alertBox.innerHTML = deals.length ? `<div class="deal-alert" role="status"><b>Deal alert</b>${deals.map(w =>
+    `<span>${esc(w.name || w.key)} is ${fmt(num(w.price))}${w.where ? " at " + esc(w.where) : ""}, under the ${fmt(num(w.target))} target.</span>`).join("")}</div>` : "";
+  rows.innerHTML = list.map(w => {
+    const p = num(w.price), t = num(w.target), url = safeUrl(w.url);
+    const detail = [w.where ? esc(w.where) : "", t != null ? "target " + fmt(t) : "", url ? `<a href="${esc(url)}" target="_blank" rel="noopener">View ↗</a>` : ""].filter(Boolean).join(" · ");
+    const right = p != null ? fmt(p) : `<span style="font-family:var(--font-body);font-weight:400;font-size:14px;color:var(--muted)">${esc(w.note || "Not found")}</span>`;
+    return `<div class="watch-row">
+      <div class="which"><b>${esc(w.name || w.key)}</b><span>${detail}</span></div>
+      <div class="now-price">${right}${isDeal(w) ? '<span class="deal-badge">Deal</span>' : ""}</div>
+    </div>`;
+  }).join("");
+  const when = checkedText();
+  note.textContent = (when ? `Last checked ${when}. ` : "") + "Prices are checked once a day and can change any time, so tap through to confirm before buying.";
+}
+
+async function startPriceWatch() {
+  const box = document.getElementById("watch");
+  try {
+    const res = await fetch("prices.json?ts=" + Date.now(), { cache: "no-store" });
+    if (!res.ok) return; // no price file yet: the rest of the page works as is
+    const data = await res.json();
+    if (!data || typeof data !== "object") return;
+    prices = data;
+    box.hidden = false;
+    renderWatch();
+    render();
+  } catch (e) { /* leave the price box hidden */ }
+}
+
+function summary() {
+  const sum = arr => arr.reduce((t, it) => t + (it.price || 0), 0);
+  const want = ITEMS.filter(it => it.status === "Want");
+  // Base: my Want items that aren't phones. Then add ONE phone at a time.
+  const base = want.filter(it => it.cat !== "phone" && it.price != null);
+  const baseSum = sum(base);
+  const topPhone = ITEMS.find(it => it.cat === "phone" && it.status === "Want" && it.price != null);
+  const altPhones = ITEMS.filter(it => it.cat === "phone" && it !== topPhone && it.price != null);
+  const rows = [];
+  rows.push({ title: "My Want items", sub: `${base.length} items: ${base.map(it => it.pick.replace(/ \(.*\)$/, "")).join(", ")}`, total: baseSum });
+  document.getElementById("estRows").innerHTML = rows.map((r, i) => `
+    <div class="est-row${i === 0 ? " best" : ""}">
+      <div class="which"><b>${esc(r.title)}</b><span>${esc(r.sub)}</span></div>
+      <div class="amt">${fmt(r.total)}</div>
+    </div>`).join("");
+  const alt = altPhones.map(a => `If the phone comes from ${a.short.replace(/^.*\((.*)\)$/, "$1")} instead, add ${fmt(a.price - topPhone.price)}.`).join(" ");
+  document.getElementById("estNote").textContent =
+    `How I got this: my Want items are ${base.map(it => it.pick.replace(/ \(.*\)$/, "") + " " + fmt(it.price)).join(" + ")} = ${fmt(baseSum)}.` +
+    (topPhone ? ` This doesn't include the iPhone 15 Pro Max, which is ${fmt(topPhone.price)} on eBay.` : "") +
+    ` Maybes and the gift card aren't included either.`;
+  const counts = { all: ITEMS.length, Want: want.length, Maybe: ITEMS.filter(it => it.status === "Maybe").length };
+  document.querySelectorAll(".chip").forEach(b => { b.querySelector(".count").textContent = counts[b.dataset.filter]; });
+}
+
+document.querySelectorAll(".chip").forEach(b => b.addEventListener("click", () => { filter = b.dataset.filter; saveView(); render(); }));
+document.getElementById("sortSel").addEventListener("change", e => { sort = e.target.value; saveView(); render(); });
+
+summary();
+render();
+startPriceWatch();
+</script>
+</body>
+</html>
