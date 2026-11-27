@@ -1,23 +1,23 @@
 {
-  "checkedAt": "2026-11-19T19:42:00-06:00",
+  "checkedAt": "2026-11-26T06:36:00-06:00",
   "items": {
     "iphone-ebay": {
       "name": "iPhone 15 Pro Max 256GB (eBay Refurbished)",
-      "price": 708.95,
+      "price": 536.95,
       "target": 540,
       "where": "eBay",
-      "url": "https://www.ebay.com/itm/406184999028",
-      "note": "Only Blue Titanium is in stock at this price.",
-      "previous": null
+      "url": "https://www.ebay.com/itm/406184999028?var=676513989663",
+      "note": "Blue Titanium (only color in stock), Very Good, unlocked, BidAllies (99.4%), Allstate warranty. The plain listing link shows $708.95; the Blue Titanium link shows $536.95. Next best in stock: $569 from ECOPHONEMARKET (ebay.com/itm/336235554898).",
+      "previous": 536.95
     },
     "fosi": {
       "name": "Fosi Audio K5 Pro amp",
-      "price": null,
+      "price": 79.99,
       "target": 65,
       "where": "Fosi Audio",
-      "url": "https://www.fosiaudio.com/product/dac/k5-pro/",
-      "note": "Price not shown on Fosi's page",
-      "previous": null
+      "url": "https://fosiaudio.com/products/fosi-audio-k5-pro-mini-stereo-gaming-dac-audio-for-pc",
+      "note": "Code FDBF20 ('Save 20%') is shown, but no price with it. Fosi's Black Friday page lists code EABF20 and marks it out of stock. Amazon couldn't be read.",
+      "previous": 79.99
     },
     "sihoo": {
       "name": "SIHOO M18 chair (skate wheels)",
@@ -25,8 +25,8 @@
       "target": 130,
       "where": "SIHOO",
       "url": "https://www.sihoo.com/products/m18-ergonomic-chair",
-      "note": "Regular price $289.99",
-      "previous": null
+      "note": "Black (Skate Wheels), regular $289.99. SIHOO's Black Friday page shows code BF20 (extra $20 off) but no price with it. Amazon couldn't be read.",
+      "previous": 169.99
     },
     "govee": {
       "name": "Govee RGBICWW Light Bar (set of 2)",
@@ -34,8 +34,8 @@
       "target": 45,
       "where": "Govee",
       "url": "https://us.govee.com/products/govee-rgbicww-light-bar",
-      "note": "On sale, regular $54.99",
-      "previous": null
+      "note": "On sale, regular $54.99. H6056 is sold as a pair. Amazon couldn't be read.",
+      "previous": 34.99
     }
   }
 }
